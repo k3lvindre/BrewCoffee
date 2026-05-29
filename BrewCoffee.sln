@@ -11,6 +11,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BrewCoffee.Application", "B
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BrewCoffee.UnitTests", "BrewCoffee.UnitTests\BrewCoffee.UnitTests.csproj", "{FA389ED1-3F94-4903-9ECA-662E5E4AC301}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BrewCoffee.ExternalService", "BrewCoffee.ExternalService\BrewCoffee.ExternalService.csproj", "{BBF0D233-963D-408D-91E4-DEDC038CC78F}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -33,6 +35,10 @@ Global
 		{FA389ED1-3F94-4903-9ECA-662E5E4AC301}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{FA389ED1-3F94-4903-9ECA-662E5E4AC301}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{FA389ED1-3F94-4903-9ECA-662E5E4AC301}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BBF0D233-963D-408D-91E4-DEDC038CC78F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BBF0D233-963D-408D-91E4-DEDC038CC78F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BBF0D233-963D-408D-91E4-DEDC038CC78F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BBF0D233-963D-408D-91E4-DEDC038CC78F}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
