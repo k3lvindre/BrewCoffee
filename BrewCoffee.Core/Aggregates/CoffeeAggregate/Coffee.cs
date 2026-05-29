@@ -1,10 +1,10 @@
 ﻿using BrewCoffee.Core.Common.Exceptions;
 
-namespace BrewCoffee.Core.Models
+namespace BrewCoffee.Core.Aggregates.CoffeeAggregate
 {
     public class Coffee 
     {
-        public required string Message { get; set; }
+        public string Message { get; set; } = string.Empty;
         public DateTime Prepared { get; set; }
 
         private readonly DateTime FirstDayOfApril = new(DateTime.UtcNow.Year, 4, 1);
