@@ -11,7 +11,7 @@ namespace BrewCoffee.UnitTests.Coffees.Queries
 
         public BrewCoffeeQueryHandlerTests()
         {
-            _handler = new BrewCoffeeQueryHandler();
+            _handler = new BrewCoffeeQueryHandler(new WeatherServiceMoq(20));
         }
 
         [Test]

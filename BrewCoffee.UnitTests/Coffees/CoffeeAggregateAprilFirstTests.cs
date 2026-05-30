@@ -16,7 +16,7 @@ namespace BrewCoffee.UnitTests.Coffees
             var aprilFirst = new DateTime(DateTime.UtcNow.Year, 4, 1);
 
             // Act
-            var act = () => coffee.Brew(aprilFirst);
+            var act = () => coffee.Brew(aprilFirst, 20);
 
             // Assert
             act.Should().Throw<BusinessException>();
