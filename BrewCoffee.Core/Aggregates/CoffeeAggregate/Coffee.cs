@@ -19,7 +19,7 @@ namespace BrewCoffee.Core.Aggregates.CoffeeAggregate
             {
                 return new Coffee
                 {
-                    Message = "Your refreshing iced coffee is\r\nready",
+                    Message = "Your refreshing iced coffee is ready",
                     Prepared = dateToday
                 };
             }
