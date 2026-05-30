@@ -1,8 +1,8 @@
 ﻿using System.Text.Json.Serialization;
 
-namespace BrewCoffee.ExternalService.Weather
+namespace BrewCoffee.ExternalService.Weather.OpenWeatherOrg
 {
-    public class GetCurrentWeatherDataResponse
+    public class OpenWeatherMapOrgGetCurrentWeatherDataResponse
     {
         [JsonPropertyName("lat")]
         public double Latitude { get; set; }

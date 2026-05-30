@@ -1,4 +1,4 @@
-﻿using BrewCoffee.ExternalService.Weather;
+﻿using BrewCoffee.ExternalService.Weather.OpenWeatherOrg;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Refit;
@@ -12,8 +12,8 @@ namespace BrewCoffee.ExternalService
         {
             services.AddHttpClient();
            
-            services.AddRefitClient<IWeatherService>()
-                .ConfigureHttpClient(c => c.BaseAddress = new Uri(configuration["ExternalService:Weather:BaseUrl"]!));
+            services.AddRefitClient<IOpenWeatherOrgWeatherService>()
+                .ConfigureHttpClient(c => c.BaseAddress = new Uri(configuration["ExternalService:Weather:OpenWeatherMapOrg:BaseUrl"]!));
 
             return services;
         }
