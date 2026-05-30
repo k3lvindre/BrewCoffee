@@ -2,6 +2,6 @@
 {
     public interface IWeatherService
     {
-        Task<WeatherResponse> GetCurrentWeatherAsync();
+        Task<int> GetCurrentWeatherTemparatureAsync();
     }
 }
