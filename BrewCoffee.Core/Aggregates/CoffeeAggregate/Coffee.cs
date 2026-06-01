@@ -17,18 +17,14 @@ namespace BrewCoffee.Core.Aggregates.CoffeeAggregate
 
             if (currentWeatherTemparatureInCelcius > 30)
             {
-                return new Coffee
-                {
-                    Message = "Your refreshing iced coffee is ready",
-                    Prepared = dateToday
-                };
+                this.Message = "Your refreshing iced coffee is ready";
+                this.Prepared = dateToday;
+                return this;
             }
 
-            return new Coffee
-            {
-                Message = "Your piping hot coffee is ready",
-                Prepared = dateToday
-            };
+            this.Message = "Your piping hot coffee is ready";
+            this.Prepared = dateToday;
+            return this;
         }
     }
 }
