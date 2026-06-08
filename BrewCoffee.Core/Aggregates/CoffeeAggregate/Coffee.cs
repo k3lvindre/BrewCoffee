@@ -15,6 +15,7 @@ namespace BrewCoffee.Core.Aggregates.CoffeeAggregate
             //invariant: we don't brew coffee on April 1st, it's a day for jokes, not for coffee
             if (dateToday == FirstDayOfApril) throw new BusinessException();
 
+            // add comment for testing ci/cd pipeline
             this.Message = "Your piping hot coffee is ready";
             this.Prepared = dateToday;
 
