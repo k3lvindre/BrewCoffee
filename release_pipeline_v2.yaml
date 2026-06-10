@@ -1,0 +1,96 @@
+# ASP.NET Core
+# Build and test ASP.NET Core projects targeting .NET Core.
+# Add steps that run tests, create a NuGet package, deploy, and more:
+# https://docs.microsoft.com/azure/devops/pipelines/languages/dotnet-core
+
+pool:
+  vmImage: ubuntu-latest
+
+stages:
+- stage: Test
+  displayName: 'Test'
+  jobs:
+  - job: buildandtest
+
+    steps:
+    # Restore nuget 
+    - task: DotNetCoreCLI@2
+      displayName: 'Restore NuGet Packages'
+      inputs:
+        command: 'restore'
+        projects: '**/*.sln'
+
+    # build sln
+    - task: DotNetCoreCLI@2
+      displayName: 'Build sln'
+      inputs:
+          azureSubscription: 'Azure subscription 1(b634feb2-2571-4837-97e7-ba6cf5c00a89)'
+          command: 'build'
+          projects: '**/*.sln'
+          arguments: '--configuration release --no-restore'
+
+    # Run tests
+    - task: DotNetCoreCLI@2
+      displayName: 'Run Tests'
+      inputs:
+          azureSubscription: 'Azure subscription 1(b634feb2-2571-4837-97e7-ba6cf5c00a89)'
+          command: 'test'
+          projects: '**/*[Tt]est*.csproj'
+
+- stage: Staging
+  displayName: 'Stg'
+  jobs:
+  - job: DeployTostaging
+    steps:
+  # publish files first so PublishPipelineArtifact task will create drop file from published files
+  # this is required or else the PublishPipelineArtifact wont works since there is no published files
+    - task: DotNetCoreCLI@2
+      displayName: 'Publish API Binaries'
+      inputs:
+          command: 'publish'
+          publishWebProjects: false
+          projects: '**/BrewCoffee.csproj'
+          arguments: '--configuration $(buildConfiguration) --output $(Build.ArtifactStagingDirectory)'
+          zipAfterPublish: true
+
+    # publish an artifact called drop
+    - task: PublishPipelineArtifact@1
+      inputs:
+        targetPath: '$(Build.ArtifactStagingDirectory)' 
+        artifactName: drop
+    
+    # deploy to Azure Web App staging by getting the drop file 
+    # from ArtifactStagingDirectory created from previous task
+    - task: AzureWebApp@1
+      inputs:
+        azureSubscription: 'Azure subscription 1(b634feb2-2571-4837-97e7-ba6cf5c00a89)'
+        appType: 'webApp'
+        appName: 'brewcoffee'
+        deployToSlotOrASE: true
+        resourceGroupName: 'PracticeTutorial'
+        slotName: 'staging'
+        package: '$(Build.ArtifactStagingDirectory)/**/BrewCoffee.zip'
+
+- stage: Production
+  dependsOn: Staging
+  displayName: 'Prod'
+  jobs:
+  # Here we use deployment since job cannot use environment it can only run task, build  or script but not
+  # deployment to environment
+  - deployment: 
+    environment: 
+      name: 'production'
+    strategy:
+      runOnce:
+        deploy:
+          steps:
+          # swap staging to prod
+          # you can run this again to rollback or u can use portal to swap other option
+          # is to create another pipeline for rolling back that you can run anytime since it is isolated
+          - task: AzureAppServiceManage@0
+            inputs:
+              azureSubscription: 'Azure subscription 1(b634feb2-2571-4837-97e7-ba6cf5c00a89)'
+              WebAppName: 'brewcoffee'
+              ResourceGroupName: 'PracticeTutorial'
+              SourceSlot: staging
+              SwapWithProduction: true
